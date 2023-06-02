@@ -12,8 +12,8 @@ terraform {
     bucket     = "terraform-state-yuriy-krivinya"
     region     = "ru-central1"
     key        = "terraform.tfstate"
-    access_key = "YCAJEVUhP7h5MRLe-DDDq3_Hx"
-    secret_key = "YCO8ApLBNe0Q9YXNaj4s1da1ANA3w8T8yhW-rFZU"    
+    access_key = "YCAJEbxXNQ3_Ei-l9--smdJQT"
+    secret_key = "YCMKlprrIdlhBdsNZEvzNFuH4paeFLUGM1VM57dL"    
 
     skip_region_validation      = true
     skip_credentials_validation = true
@@ -58,6 +58,10 @@ resource "yandex_compute_instance" "vm-1" {
     metadata = {
         ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
     }
+}
+
+data "template_file" "user_data" {
+  template = file("./scripts/add-users.yaml")
 }
 
 output "ip_address" {
