@@ -1,0 +1,13 @@
+# Добавление групп в систему
+groups:
+  - ansible
+
+# Добавление пользователей в систему
+users:
+  - name: ansible
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: ansible
+    lock_passwd: false
+    ssh_authorized_keys:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCpJCfgovrlDRI8xpNSFvuMn/XTAMs+AZRDD9jNAfhwQfhl4ukaibQ70HOdruzHbEsYapEwnVQ8T2nYPGNVJk3Lx8hQd6eihN02BCuTyrZ7nYAiMrunPgT3ng+5GvVbVfGts99hjo1b/IsuA9fJ2w0phByyK5NupT2TiFUA/wPJcLgDEncE8GfOaaUfbiaUVhCn/yAj62y0p508qdcpy9cD1mvv/YTV/a+RBT9QoAcRUwJT9Tgd5ostnfvSk7Zh3wpAbPm3shTRPpiotJTvZFBWpCi6GkK3BRjaINT0dCHM3XpaqelW/5mq17Rbiuup2vuwGS+Gz5CaIbSXS7hQEDLxXbpN5NZvOL4B5hFVVb7VSpQx1YY682EJBE7ULTINOFpx9BLaGSixNOBkhgLHDOCNzfkli1WZ84GoLN3gckoGBoaYgooxuqMFPl/+uoiRzvdPl+yn3DNtOwuSUF4R6MDbwlxnEj0BZWugjgw3/3VIE5Zt+S8J/GI7OZLxTH4ZUaU= kyn07c0@yandex.ru"
