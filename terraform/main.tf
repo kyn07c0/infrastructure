@@ -41,7 +41,7 @@ resource "yandex_compute_instance" "vm-1" {
     # для новой виртуальной машины
     boot_disk {
         initialize_params {
-            image_id = "fd80f8mhk83hmvp10vh2"
+            image_id = "fd80qm01ah03dkqb14lc"
         }
     }
 
@@ -56,14 +56,10 @@ resource "yandex_compute_instance" "vm-1" {
     # здесь можно указать скрипт, который запустится при создании ВМ
     # или список SSH-ключей для доступа на ВМ
     metadata = {
-        ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
+    	user-data = file("./add-users.yaml")
     }
 }
 
-data "template_file" "user_data" {
-  template = file("./scripts/add-users.yaml")
-}
-
 output "ip_address" {
-    value = yandex_compute_instance.vm-1.network_interface.0.ip_address
+  value = yandex_compute_instance.vm-1.network_interface.0.ip_address
 }
