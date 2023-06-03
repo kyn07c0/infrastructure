@@ -9,3 +9,4 @@ subnet_id	= "e9b0nup7lqmaiqf045tf"
 size		= 20
 core		= 2
 memory		= 2
+network_zones	= ["ru-central1-a","ru-central1-b","ru-central1-c"]
