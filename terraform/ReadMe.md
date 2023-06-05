@@ -11,7 +11,7 @@
 
 <h3>Основные команды Terraform:</h3>
 
-<ui>
+<ul>
 <li>
   Инициализация провайдера
   `terraform init -backend-config=backend.tfvars`
@@ -24,4 +24,4 @@
   Применение конфигурации
   `terraform apply -var-file=backend.tfvars`
 </li>
-</ui>
+</ul>
