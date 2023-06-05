@@ -1,20 +1,28 @@
 terraform {
   required_providers {
     yandex = {
-      source  = "yandex-cloud/yandex"
+      source = "yandex-cloud/yandex"
       version = ">= 0.87.0"
     }
   }
-  
-  # Описание бэкенда хранения состояния
-  backend "s3" {
-    endpoint   = "storage.yandexcloud.net"
-    bucket     = "terraform-state-yuriy-krivinya"
-    region     = "ru-central1"
-    key        = "terraform.tfstate"
-    access_key = "YCAJEbxXNQ3_Ei-l9--smdJQT"
-    secret_key = "YCMKlprrIdlhBdsNZEvzNFuH4paeFLUGM1VM57dL"    
-    skip_region_validation      = true
-    skip_credentials_validation = true
+
+  backend "s3" {}  
+}
+
+data "terraform_remote_state" "state" {
+  backend = "s3"
+  config = {
+    endpoint = "${var.endpoint}"
+    bucket = "${var.bucket}"
+    region = "${var.region}"
+    key = "${var.key}"
+    access_key = "${var.access_key}"
+    secret_key = "${var.secret_key}"
+    skip_region_validation = "${var.skip_region_validation}"
+    skip_credentials_validation = "${var.skip_credentials_validation}"
   }
+}
+
+data "template_file" "user_data" {
+  template = file("./add-users.yaml")
 }

@@ -43,7 +43,7 @@ variable "subnet_id" {
 
 variable "nat" {
   type        	= bool
-  description 	= "Nat"
+  description 	= "Whether nat is used to create a network IP address."
   sensitive 	= true
   nullable 	= false
   default     	= false

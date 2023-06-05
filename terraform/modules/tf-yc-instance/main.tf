@@ -17,11 +17,11 @@ resource "yandex_compute_instance" "vm-1" {
    
     network_interface {
         subnet_id = var.subnet_id
-        nat = false
+        nat = var.nat
     }
 
     metadata = {
-    	user-data = file("./add-users.yaml")
+        user-data = file("./add-users.yaml")
     }
 
     scheduling_policy {
