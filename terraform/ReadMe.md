@@ -14,14 +14,20 @@
 <ul>
 <li>
   Инициализация провайдера
-  `terraform init -backend-config=backend.tfvars`
+  \```
+  terraform init -backend-config=backend.tfvars
+  \```
 </li>
 <li>
   Проверка конфигурационного файла
-  `terraform plan -var-file=backend.tfvars`
+  \```
+  terraform plan -var-file=backend.tfvars
+  \```
 </li>
 <li>
   Применение конфигурации
-  `terraform apply -var-file=backend.tfvars`
+  \```
+  terraform apply -var-file=backend.tfvars
+  \```
 </li>
 </ul>
