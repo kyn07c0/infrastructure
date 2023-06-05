@@ -12,16 +12,16 @@
 <h3>Основные команды Terraform:</h3>
 
 <ul>
-<li>
-  Инициализация провайдера
-  <p>terraform init -backend-config=backend.tfvars</p>
+<li>Инициализация провайдера
+ <p>terraform init -backend-config=backend.tfvars</p>
 </li>
-<li>
-  Проверка конфигурационного файла
-  <p>terraform plan -var-file=backend.tfvars</p>
+<li>Проверка конфигурационного файла
+ <p>terraform plan -var-file=backend.tfvars</p>
 </li>
-<li>
-  Применение конфигурации
-  <p>terraform apply -var-file=backend.tfvars</p>
+<li>Применение конфигурации
+ <p>terraform apply -var-file=backend.tfvars</p>
+</li>
+<li>Удаление ВМ
+ <p>terraform destroy -var-file=backend.tfvars</p>
 </li>
 </ul>
