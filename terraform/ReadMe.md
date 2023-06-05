@@ -1,16 +1,22 @@
 <h2>Пример создания виртуальной машины в Yandex.Cloud с помощью Terraform</h2>
 
-Текущая Terraform-конфиг создаёт одну виртуальную машину (ВМ) в Yandex.Cloud.
-Перед запуском Terraform скрипта необходимо указать настройки провайдера и параметры ВМ в файле terraform.tfvars.
-Хранение состояния управляемой инфраструктуры организовано в Yandex.Cloud. Настройки для подключения хранилищу необходимо указать в файле backend.tfstate.
+Текущая Terraform-конфиг создаёт одну виртуальную машину (ВМ) в Yandex.Cloud. ВМ получает внутренний и публичный ip-адрес. Дополнительно в ВМ создаётся группа и пользовавтель ansible.
 
-Запуск Terraform-конфига:
+<h3>Предварительные настройки:</h3>
+<ul>
+<li>Настройки провайдера и параметры ВМ находятся в файле terraform.tfvars.</li>
+<li>Настройки для подключения к удалённому хранилищу состояния управляемой инфраструктурв находятся в файле backend.tfstate.</li>
+<li>Скрипт создания групп и пользователей находится в файле add-users.yaml</li>
+</ul>
 
-1) Инициализация провайдера
-terraform init -backend-config=backend.tfvars
+<h3>Основные команды Terraform:</h3>
+<ui>
+<li>Инициализация провайдера</li>
+    <p>terraform init -backend-config=backend.tfvars</p>
 
-2) Проверка конфигурационного файла
-terraform plan -var-file=backend.tfvars
+<li>Проверка конфигурационного файла</li>
+    <p>terraform plan -var-file=backend.tfvars</p>
 
-3) Применение конфигурации
-terraform apply -var-file=backend.tfvars
+<li>Применение конфигурации</li>
+    <p>terraform apply -var-file=backend.tfvars</p>
+</ui>
