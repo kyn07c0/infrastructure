@@ -15,10 +15,13 @@
 <li>Инициализация провайдера
  <p>terraform init -backend-config=backend.tfvars</p>
 </li>
-<li>Проверка конфигурационного файла
+<li>Проверка файлов конфигурации в каталоге
+<p>terraform validate</p>
+</li>
+<li>Создать план выполнения
  <p>terraform plan -var-file=backend.tfvars</p>
 </li>
-<li>Применение конфигурации
+<li>Выполнить действия, предложенные в плане
  <p>terraform apply -var-file=backend.tfvars</p>
 </li>
 <li>Удаление ВМ
