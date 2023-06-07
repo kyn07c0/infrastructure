@@ -1,7 +1,8 @@
 data "yandex_vpc_network" "default" {
-    name = "default"
+  name = "default"
 }
 
 data "yandex_vpc_subnet" "default" {
-    name = "${data.yandex_vpc_network.default.name}-${var.zone}" 
+  for_each = toset(var.network_zones)
+  name = "${data.yandex_vpc_network.default.name}-${each.key}"
 } 

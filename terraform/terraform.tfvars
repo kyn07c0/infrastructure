@@ -1,14 +1,14 @@
 /* Provider settings  */
 cloud_id = "b1g3jddf4nv5e9okle7p"
 folder_id = "b1gqiugu40tbisbm38ri"
-zone = "ru-central1-a"
+zone = "ru-central1-c"
 
 /* VM settings */
 platform_id = "standard-v1"
 preemptible = true
 name = "chapter5-lesson2-std-017-006"
 image_id = "fd80qm01ah03dkqb14lc"
-subnet_id = "e9b0nup7lqmaiqf045tf"
+subnet_id = "e2lp7djck28idaslcn5n"
 nat = true
 size = 50
 cores = 2
