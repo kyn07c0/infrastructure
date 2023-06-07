@@ -1,0 +1,16 @@
+#cloud-config
+
+# Добавление групп в систему
+groups:    
+  - ansible
+
+# Добавление пользователей в систему
+users:
+  - name: ansible
+    gecos: ansible
+    shell: /bin/bash
+    primary_group: ansible
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: users, admin
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCq2Sy63XhR7kacWLq+rHJaiKMsM73PCA75kJKjaG57skQQ65ZfRhJPTrrco+Eo66YXxPfIN9+d4DJBRPR+/rROZL/YTmqAOyE3Pae/pxz1eUHW004vWSN5ekzqtrmQFVUX5KSbFZjWgVNgde7qwXQau0GevXhaDPu+Zj3W7iaI/6WIK5PyuoxLnbbq3/2UdQxht89AtAgl67Re/zEwt7h8bkbpVG9YkzvYLGKdOo1C2AjGf/ZHritGlLNQ2odzuh2nZuPlNTNinKI0rj8eURq0DhqpdmnJfMhUR4wyv4JYY7JKZ/il9+HDxok8QoesJK8nbYXj3Y7yus0rFKP7a9Xh8YPHJCOwIQAbcCVxh8xa6gS8oHnUIBLYy0MNgecJ0VMViSgG+nfGE3o7Qn6h33R3ibf3NGpDE9T+viN/vWKDcNjl9uDX+63joFfsTVaJySBS52M/QtKeO0/4RZ/zuEp13xZtDNTFoB0Cxbzw3mpPPPj2HCC7AlfxvrWPQDjwgSM= kyn07c0@yansex.ru 
