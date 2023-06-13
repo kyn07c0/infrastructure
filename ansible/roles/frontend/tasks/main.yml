@@ -32,7 +32,7 @@
 - name: Установка http-server
   npm:
     name: http-server
-    global: true  
+    global: yes  
 
 - name: Скачивание архива артефактов фронтенда из Nexus
   get_url:
@@ -40,8 +40,6 @@
     url: "https://nexus.k8s.praktikum-services.tech/repository/sausage-store-kryvinya-yuriy-frontend/com/yandex/practicum/devops/sausage-store/{{ version }}/sausage-store-{{ version }}.tar.gz"
     username: "{{ nexus_repo_user }}"
     password: "{{ nexus_repo_pass }}"
-    #owner: "{{ frontend_service_user }}"
-    #group: "{{ frontend_service_group }}"
 
 - name: Распаковка архива с артефактоми в рабочую директорию
   unarchive:
@@ -53,7 +51,6 @@
   template:
     src: sausage-store-frontend.service.j2
     dest: /etc/systemd/system/sausage-store-frontend.service
-  notify: daemon reload
 
 - name: Перезагрузка конфигурации диспетчера systemd
   systemd:

@@ -6,7 +6,7 @@ zone = "ru-central1-a"
 /* VM settings */
 platform_id = "standard-v1"
 preemptible = true
-name = "chapter5-lesson2-std-017-006"
+name = "chapter5-lesson3-std-017-006"
 image_id = "fd80qm01ah03dkqb14lc"
 nat = true
 size = 50

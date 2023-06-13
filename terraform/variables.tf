@@ -2,7 +2,7 @@ variable "name" {
   type = string
   nullable = false
   description = "Name"
-  default = "chapter5-lesson2-std-017-006"
+  default = "chapter5-lesson3-std-017-006"
 }
 
 variable "folder_id" {

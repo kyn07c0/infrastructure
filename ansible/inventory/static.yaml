@@ -2,7 +2,7 @@ all:
   children: 
     backend: 
       hosts:
-        10.128.0.92:
+        10.128.0.100:
     frontend:
       hosts:
-        10.128.0.92:
+        10.128.0.100:

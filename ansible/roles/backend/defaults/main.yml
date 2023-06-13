@@ -1,7 +1,1 @@
-java_apt_package: openjdk-16-jdk
-backend_service_user: jarservice
-backend_service_group: jarservice
-backend_directory: /var/jarservice
-backend_report_directory: /logs/reports
-backend_log_directory: /logs
 version: 1.0.634646

@@ -6,7 +6,7 @@ User={{ frontend_service_user }}
 StandardOutput=append:{{ frontend_log_dir }}/out-front.log
 StandardError=append:{{ frontend_log_dir }}/out-front.log
 WorkingDirectory={{ frontend_work_dir }}
-ExecStart=http-server /var/www-data/frontend/ -p 443 --proxy http://localhost:8080
+ExecStart=http-server /var/www-data/frontend -p 10443 --proxy http://localhost:8080
 Restart=on-failure
 SyslogIdentifier=sausage-store-frontend
 
