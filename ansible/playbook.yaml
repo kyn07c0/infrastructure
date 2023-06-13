@@ -1,0 +1,9 @@
+#- name: Run service backend
+#  hosts: backend
+#  roles:
+#    - backend
+
+- name: Run service frontend
+  hosts: frontend
+  roles:
+    - frontend

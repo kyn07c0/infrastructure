@@ -1,0 +1,65 @@
+- name: Установка пакета openjdk-16-jdk
+  apt:
+    name: "openjdk-16-jdk"
+    state: present
+    update_cache: yes
+
+- name: Установка PIP
+  apt: 
+    name=python3-pip 
+    state=present
+
+- name: Установка lxml
+  pip: 
+    name=lxml    
+
+- name: Создание сервисного пользователя для бэкенда
+  user:
+    name: "{{ backend_service_user }}"
+    create_home: no
+    shell: /sbin/nologin
+
+- name: Создание директории для бэкенда
+  file:
+    path: "{{ backend_directory }}"
+    state: directory
+    owner: "{{ backend_service_user }}"
+    group: "{{ backend_service_group }}"
+    mode: 0775
+    recurse: yes
+
+- name: Создание директории для логов бэкенда
+  file:
+    path: "{{ backend_log_directory }}"
+    state: directory
+    owner: "{{ backend_service_user }}"
+    group: "{{ backend_service_group }}"
+    mode: 0775
+    recurse: yes
+
+- name: Скачивание артефактов бэкенда из Nexus
+  maven_artifact:
+    dest: "{{ backend_directory }}/sausage-store.jar"
+    repository_url: "https://nexus.k8s.praktikum-services.tech/repository/sausage-store-kryvinya-yuriy-backend/"
+    group_id: "com.yandex.practicum.devops"
+    artifact_id: "sausage-store"
+    version: "{{ version }}"
+    username: "{{ nexus_repo_user }}"
+    password: "{{ nexus_repo_pass }}"
+    owner: "{{ backend_service_user }}"
+    group: "{{ backend_service_group }}"
+  
+- name: Шаблонизация конфига управляет настройками приложения с помощью переменных
+  template:
+    src: sausage-store-backend.service.j2
+    dest: /etc/systemd/system/sausage-store-backend.service
+    notify: daemon reload
+
+- name: Перезагрузка конфигурации диспетчера systemd
+  systemd:
+    daemon_reload: yes  
+
+- name: Запуск бэкенда
+  service:
+    name: sausage-store-backend
+    state: started

@@ -1,0 +1,66 @@
+- name: Создание сервисного пользователя фронтенда
+  user:
+    name: "{{ frontend_service_user }}"
+    create_home: no
+    shell: /sbin/nologin
+
+- name: Создание рабочей директории для фронтенда
+  file:
+    path: "{{ frontend_work_dir }}" 
+    state: directory
+    owner: "{{ frontend_service_user }}"
+    group: "{{ frontend_service_group }}"
+    mode: 0775
+    recurse: yes
+
+- name: Установка gpg-ключа для nodejs
+  apt_key:
+    url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+    state: present
+    
+- name: Добавление репозитория nodejs
+  apt_repository:
+    repo: "deb https://deb.nodesource.com/node_16.x focal main"
+    state: present
+    update_cache: yes
+
+- name: Установка nodejs
+  apt:
+    name: nodejs
+    state: present
+
+- name: Установка http-server
+  npm:
+    name: http-server
+    global: true  
+
+- name: Скачивание архива артефактов фронтенда из Nexus
+  get_url:
+    dest: "{{ frontend_work_dir }}"
+    url: "https://nexus.k8s.praktikum-services.tech/repository/sausage-store-kryvinya-yuriy-frontend/com/yandex/practicum/devops/sausage-store/{{ version }}/sausage-store-{{ version }}.tar.gz"
+    username: "{{ nexus_repo_user }}"
+    password: "{{ nexus_repo_pass }}"
+    #owner: "{{ frontend_service_user }}"
+    #group: "{{ frontend_service_group }}"
+
+- name: Распаковка архива с артефактоми в рабочую директорию
+  unarchive:
+    dest: "{{ frontend_work_dir }}"
+    src: "{{ frontend_work_dir }}/sausage-store-{{ version }}.tar.gz"
+    remote_src: yes
+
+- name: Шаблонизация конфига управляет настройками приложения с помощью переменных
+  template:
+    src: sausage-store-frontend.service.j2
+    dest: /etc/systemd/system/sausage-store-frontend.service
+  notify: daemon reload
+
+- name: Перезагрузка конфигурации диспетчера systemd
+  systemd:
+    daemon_reload: yes
+
+- name: Запуск фронтенда
+  service:
+    name: sausage-store-frontend
+    state: started
+
