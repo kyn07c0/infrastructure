@@ -1,7 +1,7 @@
 variable "name" {
   type = string
   description = "Name"
-  default = "chapter5-lesson2-std-017-006"
+  default = "chapter5-lesson3-std-017-006"
 }
 
 variable "zone" {
