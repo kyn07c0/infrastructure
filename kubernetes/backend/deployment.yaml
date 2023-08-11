@@ -1,0 +1,73 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: backend
+spec:
+  # желаемое количество реплик Pod'а
+  replicas: 3
+  # Стратегия развёртывания. Recreate — удалит сначала все старые Pod'ы
+  # Есть и более гибкая стратегии, например, RollingUpdate, которая будет обновлять Pod'ы порциями
+  strategy:
+    type: Recreate
+  # селектор, который выбирает Pod'ы, попадающие под управление RC (Replication Controller)
+  selector:
+    matchLabels:    
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    # шаблон для создания Pod'ов
+    spec:
+      containers:
+        - name: backend
+          image: gitlab.praktikum-services.ru:5050/std-017-006/sausage-store/sausage-backend:latest
+          imagePullPolicy: Always
+          env:
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                secretKeyRef:
+                 name: pg
+                 key: url 
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: pg
+                  key: username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                 name: pg
+                 key: password
+            - name: VAULT_HOST
+              value: std-017-06.praktikum-services.tech
+            - name: VAULT_HOST
+              value: std-017-06.praktikum-services.tech
+            - name: VAULT_TOKEN
+              valueFrom:
+               secretKeyRef:
+                  name: vault
+                  key: vault_token
+          ports:
+            - name: backend
+              containerPort: 8090
+          livenessProbe:
+            # проверка живучести выполнит запрос HTTP GET       
+            httpGet:
+              # путь к запросу в HTTP-запросе          
+              path: / 
+              port: 8090
+            # перед исполнением первой проверки подождать 15 секунд, пока стартанёт бэкенд          
+            initialDelaySeconds: 15
+            # период выполнения проверки
+            periodSeconds: 30
+            # максимальное время выполнения проверки (по умолчанию 1 раз)
+            timeoutSeconds: 2
+            # сколько раз пробовать попытку, если она провалилась (по умолчанию 1 раз)
+            failureThreshold: 6
+      # чтобы Кубер мог скачивать образы из нашего GitLab Registry  
+      imagePullSecrets:
+        - name: docker-config-secret
