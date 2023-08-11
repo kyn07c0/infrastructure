@@ -20,7 +20,7 @@ spec:
       containers:
         - name: backend-report
           image: gitlab.praktikum-services.ru:5050/std-017-006/sausage-store/sausage-backend-report:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           resources:
             requests:
               memory: "64Mi"
@@ -36,6 +36,6 @@ spec:
              valueFrom:
                secretKeyRef:
                  name: mongodb
-                 key: mongodb
+                 key: db
       imagePullSecrets:
         - name: docker-config-secret        
