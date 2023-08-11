@@ -42,15 +42,6 @@ spec:
                 secretKeyRef:
                  name: pg
                  key: password
-            - name: VAULT_HOST
-              value: std-017-06.praktikum-services.tech
-            - name: VAULT_HOST
-              value: std-017-06.praktikum-services.tech
-            - name: VAULT_TOKEN
-              valueFrom:
-               secretKeyRef:
-                  name: vault
-                  key: vault_token
           ports:
             - name: backend
               containerPort: 8090

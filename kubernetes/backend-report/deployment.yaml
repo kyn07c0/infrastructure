@@ -32,14 +32,7 @@ spec:
             - name: backend-report
               containerPort: 8080
           env:
-            - name: VAULT_HOST
-              value: std-017-06.praktikum-services.tech
-            - name: VAULT_TOKEN  
-              valueFrom:
-                secretKeyRef:
-                  name: vault
-                  key: vault_token
-            - name: DB
+           - name: DB
               valueFrom:
                 secretKeyRef:
                  name: mongo
