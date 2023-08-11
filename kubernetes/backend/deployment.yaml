@@ -49,7 +49,7 @@ spec:
             # проверка живучести выполнит запрос HTTP GET       
             httpGet:
               # путь к запросу в HTTP-запросе          
-              path: / 
+              path: /actuator/health
               port: 8090
             # перед исполнением первой проверки подождать 15 секунд, пока стартанёт бэкенд          
             initialDelaySeconds: 15
