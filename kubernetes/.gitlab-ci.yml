@@ -8,15 +8,15 @@ deploy:
     name: kubernetes
     url: https://std-017-006.k8s.praktikum-services.tech
   before_script:
-    - mkdir -p ~/.kube
-    - touch ~/.kube/config
-    - echo ${KUBE_CONFIG} > ~/.kube/config
-    - chmod 664 ~/.kube/config
-    - KUBECONFIG=~/.kube/config
+    - mkdir -p ${HOME}/.kube
+    - touch ${HOME}/.kube/config
+    - echo ${KUBE_CONFIG} > ${HOME}/.kube/config
+    - chmod 664 ${HOME}/.kube/config
+    - KUBECONFIG=${HOME}/.kube/config
     - export KUBECONFIG  
   script:
-    - cat ~/.kube/config
-    - kubectl apply -f kubernetes/backend --kubeconfig="~/.kube/config"
+    - cat ${HOME}/.kube/config
+    - kubectl apply -f kubernetes/backend --kubeconfig="${HOME}/.kube/config"
     #- kubectl apply -f kubernetes/backend-report
     #- kubectl apply -f kubernetes/frontend
     - rm -f ~/.kube/config
