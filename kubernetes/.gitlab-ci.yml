@@ -12,6 +12,8 @@ deploy:
     - touch ~/.kube/config
     - echo ${KUBE_CONFIG} > ~/.kube/config
     - chmod 664 ~/.kube/config
+    - KUBECONFIG=~/.kube/config
+    - export KUBECONFIG  
   script:
     - cat ~/.kube/config
     - kubectl apply -f kubernetes/backend
