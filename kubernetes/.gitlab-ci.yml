@@ -10,8 +10,7 @@ deploy:
   before_script:
     - mkdir -p ~/.kube
     - touch ~/.kube/config
-    - echo ${KUBE_CONFIG} >> ~/.kube/config
-    - echo "test" >> ~/.kube/config
+    - echo ${KUBE_CONFIG} > ~/.kube/config
     - chmod 664 ~/.kube/config
   script:
     - cat ~/.kube/config
