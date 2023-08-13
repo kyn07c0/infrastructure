@@ -13,6 +13,7 @@ deploy:
   script:
     - cat ~/.kube/config
     - cd kubernetes
+    - ls .
     - kubectl apply -f backend 
     #- kubectl apply -f kubernetes/backend-report
     #- kubectl apply -f kubernetes/frontend
