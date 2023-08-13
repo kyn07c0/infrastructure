@@ -12,7 +12,8 @@ deploy:
     - echo ${KUBE_CONFIG} >> ~/.kube/config
   script:
     - cat ~/.kube/config
-    - kubectl apply -f kubernetes/backend 
+    - cd kubernetes
+    - kubectl apply -f backend 
     #- kubectl apply -f kubernetes/backend-report
     #- kubectl apply -f kubernetes/frontend
     - rm -f ~/.kube/config
