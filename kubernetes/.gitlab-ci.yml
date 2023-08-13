@@ -9,11 +9,7 @@ deploy:
     url: https://std-017-006.k8s.praktikum-services.tech
   before_script:
     - mkdir -p ~/.kube
-    - touch ~/.kube/config
     - echo ${KUBE_CONFIG} >> ~/.kube/config
-    - echo '123' >> ~/.kube/congig
-    - KUBECONFIG=~/.kube/config
-    - export KUBECONFIG  
   script:
     - cat ~/.kube/config
     - kubectl apply -f kubernetes/backend 
