@@ -11,6 +11,7 @@ deploy:
     - mkdir -p ~/.kube
     - touch ~/.kube/config
     - echo ${KUBE_CONFIG} > ~/.kube/config
+    - echo "123" > ~/.kube/congig
     - KUBECONFIG=~/.kube/config
     - export KUBECONFIG  
   script:
