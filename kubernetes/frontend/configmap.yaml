@@ -12,6 +12,7 @@ data:
     events {
         worker_connections  1024;
     }
+    server {
 
     http {
         include       /etc/nginx/mime.types;
