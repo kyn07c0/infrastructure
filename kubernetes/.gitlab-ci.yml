@@ -3,7 +3,7 @@ stages:
 
 deploy:
   stage: deploy
-  image: alpine/k8s:1.22.10
+  image: bitnami/kubectl:1.22-debian-10
   environment:
     name: kubernetes
     url: https://std-017-006.k8s.praktikum-services.tech
