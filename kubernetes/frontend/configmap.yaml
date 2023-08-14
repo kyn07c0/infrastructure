@@ -39,5 +39,5 @@ data:
               proxy_pass http://backend:8090;
           }
         }
-
       }
+
