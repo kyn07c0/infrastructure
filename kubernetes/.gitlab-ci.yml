@@ -10,7 +10,7 @@ deploy:
   before_script:
     - mkdir -p ~/.kube
     - echo ${KUBECONFIG_BASE64} | base64 -d > ~/.kube/config
-    - KUBECONFIG=~/.kube/config
+    - KUBECONFIG="~/.kube/config"
     - export KUBECONFIG
   script:
     - printenv 
