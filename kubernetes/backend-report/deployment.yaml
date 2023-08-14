@@ -21,6 +21,13 @@ spec:
         - name: backend-report
           image: gitlab.praktikum-services.ru:5050/std-017-006/sausage-store/sausage-backend-report:latest
           imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"
           ports:
             - name: backend-report
               containerPort: 8080
