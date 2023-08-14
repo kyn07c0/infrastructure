@@ -9,11 +9,10 @@ deploy:
     url: https://std-017-006.k8s.praktikum-services.tech
   before_script:
     - mkdir -p ~/.kube
-    - echo ${KUBECONFIG_BASE64} | base64 -d > .kube/config
-    - export KUBECONFIG=$KUBECONFIG
+    - echo ${KUBECONFIG_BASE64} | base64 -d > ~/.kube/config
   script:
     - cat ~/.kube/config
-    - KUBECONFIG=.kube/config kubectl apply -f kubernetes/backend 
+    - KUBECONFIG=~/.kube/config kubectl apply -f kubernetes/backend 
       #- kubectl apply -f kubernetes/backend-report
       #- kubectl apply -f kubernetes/frontend
     - rm -f ~/.kube/config
