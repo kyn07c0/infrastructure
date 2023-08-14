@@ -11,9 +11,7 @@ deploy:
     - mkdir -p ~/.kube
     - echo ${KUBECONFIG_BASE64} | base64 -d > ~/.kube/config
   script:
-    #- printenv
-    - cat ~/.kube/config
     - kubectl apply -f kubernetes/backend/
-      #- kubectl apply -f kubernetes/backend-report
-      #- kubectl apply -f kubernetes/frontend
+    - kubectl apply -f kubernetes/backend-report
+    - kubectl apply -f kubernetes/frontend
     - rm -f ~/.kube/config
