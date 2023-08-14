@@ -12,7 +12,6 @@ data:
     events {
         worker_connections  1024;
     }
-    server {
 
     http {
         include       /etc/nginx/mime.types;
@@ -37,7 +36,9 @@ data:
           }
 
           location /api {
+
               proxy_pass http://backend:8090;
           }
         }
+
       }
