@@ -13,7 +13,10 @@ spec:
   # Стратегия развёртывания. Recreate — удалит сначала все старые Pod'ы
   # Есть и более гибкая стратегии, например, RollingUpdate, которая будет обновлять Pod'ы порциями
   strategy:
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2
+      maxSurge: 20%
   # селектор, который выбирает Pod'ы, попадающие под управление RC (Replication Controller)
   selector:
     matchLabels:    
