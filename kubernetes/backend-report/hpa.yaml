@@ -1,6 +1,10 @@
 ---
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
+metadata:
+  name: backend-report-hpa
+  labels:
+    app: backend-report-hpa
 spec:
   minReplicas: 1
   maxReplicas: 5
