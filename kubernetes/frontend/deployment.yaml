@@ -50,8 +50,8 @@ spec:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:            
-                matchExpressions:
-                  — key: app
-                    operator: In
-                    values:
-                      — frontend
+              - matchExpressions:
+                — key: app
+                  operator: In
+                  values:
+                    — frontend
