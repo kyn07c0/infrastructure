@@ -51,7 +51,7 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
                 - matchExpressions:
-                    - key: "application"
-                      operator: In
-                      values:
-                        front
+                    key: "application"
+                    operator: In
+                    values:
+                      - front
