@@ -12,7 +12,7 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: frontend
+      application: front
   template:
     metadata:
       labels:
