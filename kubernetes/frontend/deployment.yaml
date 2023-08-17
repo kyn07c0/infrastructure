@@ -49,8 +49,8 @@ spec:
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-            - nodeSelectorTerms:
-              matchExpressions:
+            nodeSelectorTerms:
+            - matchExpressions:
               - key: application
                 operator: In
                 values:
