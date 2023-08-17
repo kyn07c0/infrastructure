@@ -12,7 +12,7 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      application: front
+      app: frontend
   template:
     metadata:
       labels:
@@ -54,4 +54,4 @@ spec:
               - key: application
                 operator: In
                 values:
-                - front
+                - frontend
