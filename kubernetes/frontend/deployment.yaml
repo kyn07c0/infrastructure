@@ -54,4 +54,4 @@ spec:
                     - key: "application"
                       operator: In
                       values:
-                        - front
+                        front
