@@ -50,7 +50,7 @@ spec:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:         
             - matchExpressions:
-                key: application
-                operator: In
-                values:
-                  front
+                - key: application
+                  operator: In
+                  values:
+                    front
