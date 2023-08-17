@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: frontend
   labels:
-    app: front
+    app: frontend
 spec:
   replicas: 1
   revisionHistoryLimit: 15
@@ -12,11 +12,11 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: front
+      app: frontend
   template:
     metadata:
       labels:
-        app: front
+        app: frontend
     spec:
       containers:
         - name: frontend
@@ -51,7 +51,7 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:            
             - matchExpressions:
-              - key: app
+              - key: application
                 operator: In
                 values:
-                - frontend
+                - front
