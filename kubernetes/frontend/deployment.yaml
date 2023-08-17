@@ -16,7 +16,7 @@ spec:
   template:
     metadata:
       labels:
-        app: front
+        app: frontend
     spec:
       containers:
         - name: frontend
