@@ -51,7 +51,7 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:            
             - matchExpressions:
-              - key: "application"
+              - key: application
                 operator: In
                 values:
                 - front
