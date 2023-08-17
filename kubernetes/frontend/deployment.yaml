@@ -16,7 +16,7 @@ spec:
   template:
     metadata:
       labels:
-        app: frontend
+        app: front
     spec:
       containers:
         - name: frontend
@@ -54,4 +54,4 @@ spec:
               - key: app
                 operator: In
                 values:
-                - front
+                - frontend
