@@ -49,7 +49,7 @@ spec:
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
+            labelSelector:
               matchExpressions:
               - key: "application"
                 operator: In
