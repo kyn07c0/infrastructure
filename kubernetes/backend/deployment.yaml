@@ -8,10 +8,15 @@ metadata:
 spec:
   # желаемое количество реплик Pod'а
   replicas: 3
+  # сохранение истории деплоев до 15
+  revisionHistoryLimit: 15
   # Стратегия развёртывания. Recreate — удалит сначала все старые Pod'ы
   # Есть и более гибкая стратегии, например, RollingUpdate, которая будет обновлять Pod'ы порциями
   strategy:
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2
+      maxSurge: 20%
   # селектор, который выбирает Pod'ы, попадающие под управление RC (Replication Controller)
   selector:
     matchLabels:    
@@ -23,42 +28,42 @@ spec:
     # шаблон для создания Pod'ов
     spec:
       containers:
+      - name: backend
+        image: gitlab.praktikum-services.ru:5050/std-017-006/sausage-store/sausage-backend:latest
+        imagePullPolicy: Always
+        env:
+        - name: SPRING_DATASOURCE_URL
+          valueFrom:
+            secretKeyRef:
+              name: pg
+              key: url 
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: pg
+              key: username
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pg
+              key: password
+        ports:
         - name: backend
-          image: gitlab.praktikum-services.ru:5050/std-017-006/sausage-store/sausage-backend:latest
-          imagePullPolicy: Always
-          env:
-            - name: SPRING_DATASOURCE_URL
-              valueFrom:
-                secretKeyRef:
-                 name: pg
-                 key: url 
-            - name: SPRING_DATASOURCE_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: pg
-                  key: username
-            - name: SPRING_DATASOURCE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                 name: pg
-                 key: password
-          ports:
-            - name: backend
-              containerPort: 8090
-          livenessProbe:
-            # проверка живучести выполнит запрос HTTP GET       
-            httpGet:
-              # путь к запросу в HTTP-запросе          
-              path: /actuator/health
-              port: 8090
-            # перед исполнением первой проверки подождать 15 секунд, пока стартанёт бэкенд          
-            initialDelaySeconds: 15
-            # период выполнения проверки
-            periodSeconds: 30
-            # максимальное время выполнения проверки (по умолчанию 1 раз)
-            timeoutSeconds: 2
-            # сколько раз пробовать попытку, если она провалилась (по умолчанию 1 раз)
-            failureThreshold: 6
+          containerPort: 8090
+        livenessProbe:
+          # проверка живучести выполнит запрос HTTP GET       
+          httpGet:
+            # путь к запросу в HTTP-запросе          
+            path: /actuator/health
+            port: 8090
+          # перед исполнением первой проверки подождать 15 секунд, пока стартанёт бэкенд          
+          initialDelaySeconds: 15
+          # период выполнения проверки
+          periodSeconds: 30
+          # максимальное время выполнения проверки (по умолчанию 1 раз)
+          timeoutSeconds: 2
+          # сколько раз пробовать попытку, если она провалилась (по умолчанию 1 раз)
+          failureThreshold: 6
       # чтобы Кубер мог скачивать образы из нашего GitLab Registry  
       imagePullSecrets:
-        - name: docker-config-secret
+      - name: docker-config-secret
