@@ -49,10 +49,10 @@ spec:
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 10
-            preference:  
-              matchExpressions:
-              - key: application
-                operator: In
-                values:
-                - front
+            - weight: 10
+              preference:  
+                matchExpressions:
+                  - key: application
+                    operator: In
+                    values:
+                      - front
