@@ -48,10 +48,11 @@ spec:
                 path: nginx.conf
       affinity:
         nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: "application"
-                    operator: In
-                    values:
-                      - front
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 10
+            preference:  
+              matchExpressions:
+              - key: application
+                operator: In
+                values:
+                - front
