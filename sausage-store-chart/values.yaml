@@ -1,5 +1,6 @@
 backend:
-  replicaCount: 3
+  replicas: 3
+  revisionHistoryLimit: 15
   image:
     repository: gitlab.praktikum-services.ru:5050/std-017-006/sausage-store/sausage-backend
     imagePullPolicy: Always
@@ -13,3 +14,13 @@ backend:
     periodSeconds: 30
     timeoutSeconds: 2
     failureThreshold: 6
+  updatePolicy:
+    updateMode: "Initial"  
+  resourcePolicy:
+    containerName: "*"
+    minAllowed:
+      cpu: 0m
+      memory: 0Mi
+    maxAllowed:
+      cpu: 1
+      memory: 500Mi  

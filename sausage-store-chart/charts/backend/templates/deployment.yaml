@@ -2,22 +2,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: {{ .Release.Name }}
   labels:
-    app: backend
+    app: {{ .Chart.Name }}
 spec:
-  # желаемое количество реплик Pod'а
-  replicas: 3
-  # сохранение истории деплоев до 15
-  revisionHistoryLimit: 15
-  # Стратегия развёртывания. Recreate — удалит сначала все старые Pod'ы
-  # Есть и более гибкая стратегии, например, RollingUpdate, которая будет обновлять Pod'ы порциями
+  replicas: {{ .Values.replicas }}
+  revisionHistoryLimit: {{ .Values.replicas }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 2
-      maxSurge: 20%
-  # селектор, который выбирает Pod'ы, попадающие под управление RC (Replication Controller)
+      maxUnavailable: {{ .Values.maxUnavailable }}
+      maxSurge: {{ .Values.maxSurge }}
   selector:
     matchLabels:    
       app: backend
@@ -49,22 +44,21 @@ spec:
               key: password
         ports:
         - name: backend
-          containerPort: 8090
+          containerPort: {{ .Values.containerPort }}
         livenessProbe:
           # проверка живучести выполнит запрос HTTP GET       
           httpGet:
             # путь к запросу в HTTP-запросе          
             path: /actuator/health
-            port: 8090
+            port: {{ .Values.containerPort }}
           # перед исполнением первой проверки подождать 15 секунд, пока стартанёт бэкенд          
-          initialDelaySeconds: 15
+          initialDelaySeconds: {{ .Values.initialDelaySeconds }}
           # период выполнения проверки
-          periodSeconds: 30
+          periodSeconds: {{ .Values.periodSeconds }}
           # максимальное время выполнения проверки (по умолчанию 1 раз)
-          timeoutSeconds: 2
+          timeoutSeconds: {{ .Values.timeoutSeconds }}
           # сколько раз пробовать попытку, если она провалилась (по умолчанию 1 раз)
-          failureThreshold: 6
+          failureThreshold: {{ .Values.failureThreshold }}
       # чтобы Кубер мог скачивать образы из нашего GitLab Registry  
       imagePullSecrets:
       - name: docker-config-secret
-
