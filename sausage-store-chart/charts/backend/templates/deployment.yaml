@@ -7,9 +7,9 @@ metadata:
     app: {{ .Chart.Name }}
 spec:
   replicas: {{ .Values.replicas }}
-  revisionHistoryLimit: {{ .Values.replicas }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   strategy:
-    type: RollingUpdate
+    type: {{ .Values.strategy.type }}
     rollingUpdate:
       maxUnavailable: {{ .Values.maxUnavailable }}
       maxSurge: {{ .Values.maxSurge }}

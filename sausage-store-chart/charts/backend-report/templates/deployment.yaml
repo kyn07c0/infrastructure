@@ -2,13 +2,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-report
+  name: {{ .Release.Name }}
   labels:
-    app: backend-report
+    app: {{ .Chart.Name }}
 spec:
-  revisionHistoryLimit: 15
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   strategy:
-    type: Recreate
+    type: {{ .Values.strategy.type }}
   selector:
     matchLabels:
       app: backend-report
