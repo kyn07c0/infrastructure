@@ -2,14 +2,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: {{ .Release.Name }}
   labels:
-    app: frontend
+    app: {{ .Chart.Name }}
 spec:
-  replicas: 1
-  revisionHistoryLimit: 15
+  replicas: {{ .Values.replicas }}
+  revisionHistoryLimit: {{ .Values.global.revisionHistoryLimit }}
   strategy:
-    type: Recreate
+    type: {{ .Values.strategy.type }}
   selector:
     matchLabels:
       app: frontend
@@ -20,11 +20,11 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: gitlab.praktikum-services.ru:5050/std-017-006/sausage-nginx/sausage-nginx:latest
-        imagePullPolicy: Always
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.imagePullPolicy }}
         resources:
           requests:
-            memory: "64Mi"
+            memory: {{ .Values.image.request.memory }} "64Mi"
             cpu: "100m"
           limits:
             memory: "128Mi"

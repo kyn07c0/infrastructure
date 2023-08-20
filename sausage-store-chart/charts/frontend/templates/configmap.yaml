@@ -27,7 +27,7 @@ data:
         keepalive_timeout  65;
         server {
 
-          listen 8080;
+          listen {{ .Values.containerPort }};
 
           location / {
             root   /usr/share/nginx/html;
@@ -36,7 +36,7 @@ data:
           }
 
           location /api {
-              proxy_pass http://backend:8090;
+              proxy_pass http://{{ .Values.global.proxyPassHost }}:{{ .Values.global.proxyPassPort }};
           }
         }
       }

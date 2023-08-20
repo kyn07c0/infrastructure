@@ -6,7 +6,7 @@ metadata:
   labels:
     app: {{ .Chart.Name }}
 spec:
-  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  revisionHistoryLimit: {{ .Values.global.revisionHistoryLimit }}
   strategy:
     type: {{ .Values.strategy.type }}
   selector:
@@ -19,8 +19,8 @@ spec:
     spec:
       containers:
       - name: backend-report
-        image: gitlab.praktikum-services.ru:5050/std-017-006/sausage-store/sausage-backend-report:latest
-        imagePullPolicy: Always
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.imagePullPolicy }}
         resources:
           requests:
             memory: "64Mi"

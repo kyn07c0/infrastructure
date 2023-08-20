@@ -7,7 +7,7 @@ metadata:
     app: {{ .Chart.Name }}
 spec:
   replicas: {{ .Values.replicas }}
-  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  revisionHistoryLimit: {{ .Values.global.revisionHistoryLimit }}
   strategy:
     type: {{ .Values.strategy.type }}
     rollingUpdate:
@@ -24,8 +24,8 @@ spec:
     spec:
       containers:
       - name: backend
-        image: gitlab.praktikum-services.ru:5050/std-017-006/sausage-store/sausage-backend:latest
-        imagePullPolicy: Always
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.imagePullPolicy }}
         env:
         - name: SPRING_DATASOURCE_URL
           valueFrom:
