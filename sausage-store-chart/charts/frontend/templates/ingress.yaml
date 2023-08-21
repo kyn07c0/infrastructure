@@ -9,9 +9,9 @@ spec:
   tls:
   - secretName: ingress-example-tls
     hosts:
-    - "std-017-006.k8s.praktikum-services.tech"
+    - {{ .Values.ingress.tsl.hosts }}
   rules:
-  - host: "std-017-006.k8s.praktikum-services.tech"
+  - host: {{ .Values.ingress.rules.host }}
     http:
       # Для различных путей в URL можно указать различные бэкенд-сервисы
       paths:
@@ -24,5 +24,4 @@ spec:
             name: frontend
             port:
               # У сервиса может быть несколько портов, указываем нужный нам
-              number: 8080
-
+              number: {{ .Values.ingress.rules.port }}

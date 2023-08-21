@@ -3,6 +3,7 @@ global:
   proxyPassHost: backend
   proxyPassPort: 8090
   dockerconfigjson: ewoJImF1dGhzIjogewoJCSJnaXRsYWIucHJha3Rpa3VtLXNlcnZpY2VzLnJ1OjUwNTAiOiB7CgkJCSJhdXRoIjogImMzUmtMVEF4Tnkwd01EWTZhMHBRTjNBME1XYz0iCgkJfQoJfQp9
+  environment: production
 
 backend:
   replicas: 3

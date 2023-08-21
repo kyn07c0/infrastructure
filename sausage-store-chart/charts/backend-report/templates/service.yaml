@@ -13,4 +13,3 @@ spec:
     targetPort: {{ .Values.containerPort }}
   selector:
     app: backend-report
-
