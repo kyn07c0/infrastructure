@@ -45,10 +45,12 @@ backend-report:
       cpu: "200m"
       memory: "128Mi"
   containerPort: 8080
-  autoscaling:
-    minReplicas: 1
-    maxReplicas: 5
-    averageUtilization: 75
+  minReplicas: 1
+  maxReplicas: 5
+  resource:
+    cpu:
+      utilization:
+        averageUtilization: 75
 
 frontend:
   replicas: 3

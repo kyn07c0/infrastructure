@@ -24,11 +24,11 @@ spec:
         imagePullPolicy: {{ .Values.image.imagePullPolicy }}
         resources:
           requests:
-            memory: {{ .Values.image.request.memory }} "64Mi"
-            cpu: "100m"
+            cpu: {{ .Values.image.request.cpu }}
+            memory: {{ .Values.image.request.memory }}
           limits:
-            memory: "128Mi"
-            cpu: "200m"
+            cpu: {{ .Values.image.limit.cpu }}
+            memory: {{ .Values.image.limit.memory }}
         volumeMounts:
         - name: nginx-conf
           mountPath: /etc/nginx/nginx.conf
@@ -36,7 +36,7 @@ spec:
           readOnly: true
         ports:
         - name: frontend
-          containerPort: 8080 
+          containerPort: {{ .Values.containerPort }}
       imagePullSecrets:
       - name: docker-config-secret
       volumes:
