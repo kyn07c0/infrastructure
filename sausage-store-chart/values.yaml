@@ -2,6 +2,7 @@ global:
   revisionHistoryLimit: 15
   proxyPassHost: backend
   proxyPassPort: 8090
+  dockerconfigjson: ewoJImF1dGhzIjogewoJCSJnaXRsYWIucHJha3Rpa3VtLXNlcnZpY2VzLnJ1OjUwNTAiOiB7CgkJCSJhdXRoIjogImMzUmtMVEF4Tnkwd01EWTZhMHBRTjNBME1XYz0iCgkJfQoJfQp9
 
 backend:
   replicas: 3
@@ -30,6 +31,10 @@ backend:
     maxAllowed:
       cpu: 1
       memory: 500Mi
+  pg:
+    url: amRiYzpwb3N0Z3Jlc3FsOi8vcmMxYi0zY3N4bTF3cTQwaGRlbXdxLm1kYi55YW5kZXhjbG91ZC5uZXQ6NjQzMi9zdGQtMDE3LTAwNg==
+    username: c3RkLTAxNy0wMDY=
+    password: VGVzdHVzcjEyMzQ=
 
 backend-report:
   strategy:
@@ -51,6 +56,7 @@ backend-report:
     cpu:
       utilization:
         averageUtilization: 75
+  db: bW9uZ29kYjovL3N0ZC0wMTctMDA2OlRlc3R1c3IxMjM0QHJjMWEtdTBud3AwNmdid2g4cXNvcS5tZGIueWFuZGV4Y2xvdWQubmV0OjI3MDE4L3N0ZC0wMTctMDA2P3Rscz10cnVlJnRsc0FsbG93SW52YWxpZENlcnRpZmljYXRlcz10cnVl
 
 frontend:
   replicas: 3
