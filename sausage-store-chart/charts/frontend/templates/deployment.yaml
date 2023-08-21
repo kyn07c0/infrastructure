@@ -24,11 +24,11 @@ spec:
         imagePullPolicy: {{ .Values.image.imagePullPolicy }}
         resources:
           requests:
-            cpu: {{ .Values.image.request.cpu }}
-            memory: {{ .Values.image.request.memory }}
+            cpu: {{ .Values.image.requests.cpu }}
+            memory: {{ .Values.image.requests.memory }}
           limits:
-            cpu: {{ .Values.image.limit.cpu }}
-            memory: {{ .Values.image.limit.memory }}
+            cpu: {{ .Values.image.limits.cpu }}
+            memory: {{ .Values.image.limits.memory }}
         volumeMounts:
         - name: nginx-conf
           mountPath: /etc/nginx/nginx.conf

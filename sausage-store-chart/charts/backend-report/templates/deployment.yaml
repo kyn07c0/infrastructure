@@ -23,14 +23,14 @@ spec:
         imagePullPolicy: {{ .Values.image.imagePullPolicy }}
         resources:
           requests:
-            memory: "64Mi"
-            cpu: "100m"
+            cpu: {{ .Values.image.requests.cpu }}
+            memory: {{ .Values.image.requests.memory }}
           limits:
-            memory: "128Mi"
-            cpu: "200m"
+            cpu: {{ .Values.image.limits.cpu }}
+            memory: {{ .Values.image.limits.memory }}
         ports:
         - name: backend-report
-          containerPort: 8080
+          containerPort: {{ .Values.containerPort }}
         env:
         - name: DB
           valueFrom:
