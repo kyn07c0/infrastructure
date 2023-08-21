@@ -73,3 +73,9 @@ frontend:
       memory: "128Mi"
       cpu: "200m"
   containerPort: 8080
+  ingress:
+    tsl:
+      hosts: std-017-006.k8s.praktikum-services.tech
+    rules:
+      host: std-017-006.k8s.praktikum-services.tech
+      port: 8080
