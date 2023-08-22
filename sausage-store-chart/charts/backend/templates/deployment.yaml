@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Chart.Name }}-{{ .Release.Name }}
+  name: {{ .Chart.Name }}
   namespace: {{ .Release.Namespace }}
   labels:
     app: {{ .Chart.Name }}
@@ -31,8 +31,8 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: "{{ .Values.pullPolicy }}"
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: SPRING_DATASOURCE_URL
               valueFrom:
@@ -56,9 +56,9 @@ spec:
             httpGet:
               path: /actuator/health
               port: {{ .Values.containerPort }}
-            initialDelaySeconds: {{ .Values.initialDelaySeconds }}
-            periodSeconds: {{ .Values.periodSeconds }}
-            timeoutSeconds: {{ .Values.timeoutSeconds }}
-            failureThreshold: {{ .Values.failureThreshold }}  
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}  
       imagePullSecrets:
         - name: docker-config-secret

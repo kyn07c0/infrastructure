@@ -6,7 +6,7 @@ global:
   environment: production
 
 backend:
-  replicas: 1
+  replicas: 3
   strategy:
     type: RollingUpdate
   image:
@@ -23,7 +23,7 @@ backend:
     timeoutSeconds: 2
     failureThreshold: 6 
   updatePolicy:
-    updateMode: "Recreate"
+    updateMode: "Initial"
   resourcePolicy:
     containerName: "*"
     minAllowed:
@@ -31,7 +31,7 @@ backend:
       memory: 0Mi
     maxAllowed:
       cpu: 1
-      memory: 500M
+      memory: 500Mi
   pg:
     url: amRiYzpwb3N0Z3Jlc3FsOi8vcmMxYi0zY3N4bTF3cTQwaGRlbXdxLm1kYi55YW5kZXhjbG91ZC5uZXQ6NjQzMi9zdGQtMDE3LTAwNg==
     username: c3RkLTAxNy0wMDY=
@@ -43,7 +43,7 @@ backend-report:
     type: Recreate
   image:
     repository: gitlab.praktikum-services.ru:5050/std-017-006/sausage-store/sausage-backend-report
-    imagePullPolicy: Always
+    pullPolicy: Always
     tag: latest
     requests:
       cpu: "100m"
@@ -66,7 +66,7 @@ frontend:
     type: Recreate
   image:
     repository: gitlab.praktikum-services.ru:5050/std-017-006/sausage-nginx/sausage-nginx
-    imagePullPolicy: Always
+    pullPolicy: Always
     tag: latest
     requests:
       memory: "64Mi"

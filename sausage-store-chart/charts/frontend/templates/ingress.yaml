@@ -8,9 +8,9 @@ spec:
   tls:
   - secretName: ingress-example-tls
     hosts:
-    - {{ .Values.ingress.tls.hosts }}
+    - "{{ .Values.ingress.tls.hosts }}"
   rules:
-  - host: {{ .Values.ingress.rules.host }}
+  - host: "{{ .Values.ingress.rules.host }}"
     http:
       paths:
       - path: /
