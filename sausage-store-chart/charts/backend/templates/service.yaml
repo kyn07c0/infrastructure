@@ -2,13 +2,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ .Values.global.proxyPassHost }}
   labels:
-    app: {{ .Chart.Name }}
+    app: backend 
 spec:
   type: ClusterIP
   ports:
-  - port: {{ .Values.containerPort }}
+  - port: {{ .Values.global.proxyPassPort }}
     protocol: TCP
     targetPort: {{ .Values.containerPort }}
   selector:

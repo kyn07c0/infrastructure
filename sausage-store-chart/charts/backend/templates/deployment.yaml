@@ -2,15 +2,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ .Chart.Name }}-{{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
   labels:
     app: {{ .Chart.Name }}
-    app.kubernetes.io/name: sausage-backend
+    app.kubernetes.io/name: sausage-{{ .Chart.Name }}
     app.kubernetes.io/instance: "{{ .Release.Name }}"
-    app.kubernetes.io/version: "{{ .Chart.AppVersion}}"
-    helm.sh/chart: "{{ Chart.Name}}-{{ .Chart.Version}}"
-    app.kubernetes.io/component: backend
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
+    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    app.kubernetes.io/component: {{ .Chart.Name }}
     app.kubernetes.io/part-of: sausage-store
     env: "{{ .Values.global.environment }}"
 spec:
@@ -19,54 +19,46 @@ spec:
   strategy:
     type: {{ .Values.strategy.type }}
     rollingUpdate:
-      maxUnavailable: {{ .Values.maxUnavailable }}
-      maxSurge: {{ .Values.maxSurge }}
+      maxUnavailable: {{ .Values.rollingUpdate.maxUnavailable }}
+      maxSurge: {{ .Values.rollingUpdate.maxSurge }}
   selector:
-    matchLabels:    
-      app: backend
+    matchLabels:
+      app: {{ .Chart.Name }}
   template:
     metadata:
       labels:
-        app: backend
-    # шаблон для создания Pod'ов
+        app: {{ .Chart.Name }}
     spec:
       containers:
-      - name: backend
-        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-        imagePullPolicy: {{ .Values.image.imagePullPolicy }}
-        env:
-        - name: SPRING_DATASOURCE_URL
-          valueFrom:
-            secretKeyRef:
-              name: pg
-              key: url 
-        - name: SPRING_DATASOURCE_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: pg
-              key: username
-        - name: SPRING_DATASOURCE_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: pg
-              key: password
-        ports:
-        - name: backend
-          containerPort: {{ .Values.containerPort }}
-        livenessProbe:
-          # проверка живучести выполнит запрос HTTP GET       
-          httpGet:
-            # путь к запросу в HTTP-запросе          
-            path: /actuator/health
-            port: {{ .Values.containerPort }}
-          # перед исполнением первой проверки подождать 15 секунд, пока стартанёт бэкенд          
-          initialDelaySeconds: {{ .Values.initialDelaySeconds }}
-          # период выполнения проверки
-          periodSeconds: {{ .Values.periodSeconds }}
-          # максимальное время выполнения проверки (по умолчанию 1 раз)
-          timeoutSeconds: {{ .Values.timeoutSeconds }}
-          # сколько раз пробовать попытку, если она провалилась (по умолчанию 1 раз)
-          failureThreshold: {{ .Values.failureThreshold }}
-      # чтобы Кубер мог скачивать образы из нашего GitLab Registry  
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.pullPolicy }}"
+          env:
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: pg
+                  key: url 
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: pg
+                  key: username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pg
+                  key: password
+          ports:
+            - name: {{ .Chart.Name }}
+              containerPort: {{ .Values.containerPort }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.containerPort }}
+            initialDelaySeconds: {{ .Values.initialDelaySeconds }}
+            periodSeconds: {{ .Values.periodSeconds }}
+            timeoutSeconds: {{ .Values.timeoutSeconds }}
+            failureThreshold: {{ .Values.failureThreshold }}  
       imagePullSecrets:
-      - name: docker-config-secret
+        - name: docker-config-secret
