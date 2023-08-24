@@ -38,7 +38,6 @@ backend:
     password: VGVzdHVzcjEyMzQ=
 
 backend-report:
-  replicas: 1
   strategy:
     type: Recreate
   image:
