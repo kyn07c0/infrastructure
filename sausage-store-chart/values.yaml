@@ -33,9 +33,9 @@ backend:
       cpu: 1
       memory: 500Mi
   pg:
-    url: amRiYzpwb3N0Z3Jlc3FsOi8vcmMxYi0zY3N4bTF3cTQwaGRlbXdxLm1kYi55YW5kZXhjbG91ZC5uZXQ6NjQzMi9zdGQtMDE3LTAwNg==
-    username: c3RkLTAxNy0wMDY=
-    password: VGVzdHVzcjEyMzQ=
+    url:
+    username:
+    password:
 
 backend-report:
   strategy:
@@ -57,7 +57,7 @@ backend-report:
     cpu:
       utilization:
         averageUtilization: 75
-  db: bW9uZ29kYjovL3N0ZC0wMTctMDA2OlRlc3R1c3IxMjM0QHJjMWMtYmlmeDdiYmUzZGQ5Y2k2MC5tZGIueWFuZGV4Y2xvdWQubmV0OjI3MDE4L3N0ZC0wMTctMDA2P3Rscz10cnVlJnRsc0FsbG93SW52YWxpZENlcnRpZmljYXRlcz10cnVl
+  db:
 
 frontend:
   replicas: 1
