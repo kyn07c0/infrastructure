@@ -8,4 +8,4 @@ deploy:
     entrypoint: ['']
   script:
     - helm package sausage-store-chart
-    - curl -u ${NEXUS_HELM_USER}:${NEXUS_HELM_PASS} ${NEXUS_HELM_REPO} --upload-file sausage-store-*.tgz 
+    - curl -u ${NEXUS_HELM_USER}:${NEXUS_HELM_PASS} --upload-file sausage-store-*.tgz ${NEXUS_HELM_REPO} 
