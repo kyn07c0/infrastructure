@@ -7,4 +7,4 @@ deploy:
     name: alpine/helm:latest
   script:
     - helm package sausage-store-chart
-    - curl -u ${NEXUS_USER}:${NEXUS_PASS} ${NEXUS_REPO} --upload-file sausage-store-*.tgz 
+    - curl -u ${NEXUS_HELM_USER}:${NEXUS_HELM_PASS} ${NEXUS_HELM_REPO} --upload-file sausage-store-*.tgz 
