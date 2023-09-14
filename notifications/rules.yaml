@@ -9,21 +9,35 @@ groups:
         severity: critical
         project: "sausage_store"
         component: "Backend"
+      annotations:
+        summary: "Instance {{ $labels.instance }} is down."
+        description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minute."
     - alert: Error500
-      expr: rate(http_requests_total{status="500"}[2m]) > 0
+      expr: sum(http_server_requests_seconds_count{status="500"})
       labels:
         severity: critical
         project: "sausage_store"
         component: "Backend"
-    - alert: Latency
-      expr: histogram_quantile(0.95, sum by (le) (rate(http_server_requests_seconds_bucket{uri="/api/orders"}[5m]))) > 0.1
+      annotations:
+        summary: "Error 500 for {{ $labels.instance }}."
+        description: "Error code 500."
+    - alert: LongDelay
+      expr: quantile(0.95, http_server_requests_seconds_max{uri="/api/orders", method="POST"}) > 0.1
+      for: 5m
       labels:
-        severity: warning
+        severity: critical
         project: "sausage_store"
         component: "Backend"
-    - alert: PrometheusActuatorError
-      expr: rate(http_server_requests_seconds_count{uri="/actuator/prometheus", status=~"4..|5.."}[2m]) > 0
+      annotations:
+        summary: "Long delay request on {{ $labels.instance }}."
+        description: "Successful POST requests to /api/orders but delay over 100ms for 95th percentile for 5 minutes."
+    - alert: ErrorPrometheusActuator
+      expr: rate(http_server_requests_seconds_count{uri="/actuator/prometheus", status=~"4..|5.."}) > 0
+      for: 2m
       labels:
-        severity: warning
+        severity: critical
         project: "sausage_store"
-        component: "Backend"
+      component: "Backend"
+      annotations:
+        summary: "Error actuator for {{ $labels.instance }}."
+        description: "Error alerting actuator /actuator/prometheus for 2 minutes."
