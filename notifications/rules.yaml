@@ -32,7 +32,7 @@ groups:
         summary: "Long delay request on {{ $labels.instance }}."
         description: "Successful POST requests to /api/orders but delay over 100ms for 95th percentile for 5 minutes."
     - alert: ErrorPrometheusActuator
-      expr: rate(http_server_requests_seconds_count{uri="/actuator/prometheus", status=~"4..|5.."}) > 0
+      expr: http_server_requests_seconds_count{uri="/actuator/prometheus", status=~"4..|5.."}
       for: 2m
       labels:
         severity: critical
