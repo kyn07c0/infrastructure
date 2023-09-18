@@ -1,43 +1,64 @@
----
-groups:
-  - name: Sausage store rules
-    rules:
-    - alert: InstanceDown
-      expr: up{app="backend"} == 0
-      for: 1m
-      labels:
-        severity: critical
-        project: "sausage_store"
-        component: "Backend"
-      annotations:
-        summary: 'Instance {{ $labels.instance }} is down'
-        description: 'Instance {{ $labels.instance }} has been down for more than 1 minute'
-    - alert: Error500
-      expr: sum(http_server_requests_seconds_count{status="500"})
-      labels:
-        severity: critical
-        project: "sausage_store"
-        component: "Backend"
-      annotations:
-        summary: 'Error 500 for {{ $labels.instance }}'
-        description: 'Error code 500'
-    - alert: LongDelay
-      expr: quantile(0.95, http_server_requests_seconds_max{uri="/api/orders", method="POST"}) > 0.1
-      for: 5m
-      labels:
-        severity: critical
-        project: "sausage_store"
-        component: "Backend"
-      annotations:
-        summary: 'Long delay request on {{ $labels.instance }}'
-        description: 'Successful POST requests to /api/orders but delay over 100ms for 95th percentile for 5 minutes'
-    - alert: ErrorPrometheusActuator
-      expr: http_server_requests_seconds_count{uri="/actuator/prometheus", status=~"4..|5.."}
-      for: 2m
-      labels:
-        severity: critical
-        project: "sausage_store"
-        component: "Backend"
-      annotations:
-        summary: 'Error actuator for {{ $labels.instance }}'
-        description: 'Error alerting actuator /actuator/prometheus for 2 minutes'
+apiVersion: v1
+data:
+  sausage-store.yaml: |+
+    ---
+    groups:
+      - name: Sausage store rules
+        rules:
+        - alert: InstanceDown
+          expr: up{app="backend"} == 0
+          for: 1m
+          labels:
+            severity: critical
+            project: "sausage_store"
+            component: "Backend"
+          annotations:
+            namespace: '{{ $labels.kubernetes_namespace }}'
+            summary: '{{ $labels.app }} is down'
+            description: '{{ $labels.app }} has been down for more than 1 minute'
+        - alert: Error500
+          expr: sum(http_server_requests_seconds_count{status="500"})
+          labels:
+            severity: critical
+            project: "sausage_store"
+            component: "Backend"
+          annotations:
+            namespace: '{{ $labels.kubernetes_namespace }}'
+            summary: 'Error 500'
+            description: 'Error code 500 {{ $labels.instance }}'
+        - alert: LongDelay
+          expr: quantile(0.95, http_server_requests_seconds_max{uri="/api/orders", method="POST"}) > 0.1
+          for: 5m
+          labels:
+            severity: critical
+            project: "sausage_store"
+            component: "Backend"
+          annotations:
+            namespace: '{{ $labels.kubernetes_namespace }}'
+            summary: 'Long delay request on {{ $labels.instance }}'
+            description: 'Successful POST requests to /api/orders but delay over 100ms for 95th percentile for 5 minutes'
+        - alert: ErrorPrometheusActuator
+          expr: http_server_requests_seconds_count{uri="/actuator/prometheus", status=~"4..|5.."}
+          for: 2m
+          labels:
+            severity: critical
+            project: "sausage_store"
+            component: "Backend"
+          annotations:
+            namespace: '{{ $labels.kubernetes_namespace }}'
+            summary: 'Error actuator for {{ $labels.instance }}'
+            description: 'Error alerting actuator /actuator/prometheus for 2 minutes'
+
+kind: ConfigMap
+metadata:
+  annotations:
+    meta.helm.sh/release-name: prometheus
+    meta.helm.sh/release-namespace: std-017-006
+  creationTimestamp: "2023-09-15T07:43:02Z"
+  labels:
+    app: prometheus
+    app.kubernetes.io/managed-by: Helm
+  name: prometheus-rules
+  namespace: std-017-006
+  resourceVersion: "1044715297"
+  uid: ae0c9ca6-a5e5-47c5-8660-b112a7774003
