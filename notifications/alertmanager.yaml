@@ -18,8 +18,8 @@ data:
      - name: "telegram"
        telegram_configs:
          - send_resolved: true
-           bot_token: '.Values.bot_token'
-           chat_id: .Values.chat_id
+           bot_token: '{{ .Values.bot_token }}'
+           chat_id: .{{ Values.chat_id }}
            message: |-
              {{ range .Alerts }}
              Namespace: {{ .Annotations.namespace }}
