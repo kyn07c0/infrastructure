@@ -48,7 +48,6 @@ data:
             namespace: '{{ $labels.kubernetes_namespace }}'
             summary: 'Error actuator for {{ $labels.instance }}'
             description: 'Error alerting actuator /actuator/prometheus for 2 minutes'
-
 kind: ConfigMap
 metadata:
   annotations:
